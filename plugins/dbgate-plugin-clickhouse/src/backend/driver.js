@@ -16,7 +16,7 @@ const driver = {
       url: databaseUrl,
       username: user,
       password: password,
-      database,
+      database: database,
     });
 
     client._database_name = database;
