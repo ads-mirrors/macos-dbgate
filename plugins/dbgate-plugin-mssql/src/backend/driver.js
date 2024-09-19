@@ -79,16 +79,11 @@ const driver = {
 
   async connect(conn) {
     const { authType } = conn;
-    const result =
-      requireMsnodesqlv8 && (authType == 'sspi' || authType == 'sql')
-        ? await nativeConnect(conn)
-        : await tediousConnect(conn);
-
-    if (result) {
-      result._database_name = conn.database;
+    if (requireMsnodesqlv8 && (authType == 'sspi' || authType == 'sql')) {
+      return nativeConnect(conn);
     }
 
-    return result;
+    return tediousConnect(conn);
   },
   async close(pool) {
     return pool.close();
